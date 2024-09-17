@@ -32,7 +32,7 @@ class DbusGoeChargerService:
     logging.debug("%s /DeviceInstance = %d" % (servicename, deviceinstance))
     
     paths_wo_unit = [
-      '/Status',  # value 'car' 1: charging station ready, no vehicle 2: vehicle loads 3: Waiting for vehicle 4: Charge finished, vehicle still connected
+      '/api/Status',  # value 'car' 1: charging station ready, no vehicle 2: vehicle loads 3: Waiting for vehicle 4: Charge finished, vehicle still connected
       '/Mode'
     ]
     
