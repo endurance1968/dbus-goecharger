@@ -32,7 +32,7 @@ class DbusGoeChargerService:
     logging.debug("%s /DeviceInstance = %d" % (servicename, deviceinstance))
     
     paths_wo_unit = [
-      '/api/Status',  # value 'car' 1: charging station ready, no vehicle 2: vehicle loads 3: Waiting for vehicle 4: Charge finished, vehicle still connected
+      '/Status',  # value 'car' 1: charging station ready, no vehicle 2: vehicle loads 3: Waiting for vehicle 4: Charge finished, vehicle still connected
       '/Mode'
     ]
     
@@ -55,7 +55,9 @@ class DbusGoeChargerService:
     self._dbusservice.add_path('/HardwareVersion', hardwareVersion)
     self._dbusservice.add_path('/Connected', 1)
     self._dbusservice.add_path('/UpdateIndex', 0)
-    
+    # Connect to AC Input in VRM
+    self._dbusservice.add_path('/Position', 1)
+   
     # add paths without units
     for path in paths_wo_unit:
       self._dbusservice.add_path(path, None)
@@ -98,7 +100,7 @@ class DbusGoeChargerService:
     accessType = config['DEFAULT']['AccessType']
     
     if accessType == 'OnPremise': 
-        URL = "http://%s/status" % (config['ONPREMISE']['Host'])
+        URL = "http://%s/api/status" % (config['ONPREMISE']['Host'])
     else:
         raise ValueError("AccessType %s is not supported" % (config['DEFAULT']['AccessType']))
     
